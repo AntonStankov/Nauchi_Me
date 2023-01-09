@@ -118,9 +118,12 @@ function login(){
 myHeaders.append("Authorization", "Bearer ");
 myHeaders.append("Content-Type", "application/json");
 
+let username_ = document.getElementById("username").value
+let password_ = document.getElementById("password").value
+
 var raw = JSON.stringify({
-  "username": "anton5",
-  "password": "12345"
+  "username": username_,
+  "password": password_
 });
 
 var requestOptions = {
@@ -136,6 +139,7 @@ fetch("http://localhost:8080/user/login", requestOptions)
         let data = await response.json();
         console.log(data);
         sessionStorage.setItem("loginToken", data['token'])
+        sessionStorage.setItem("currentUsername", username_)
         location.href = 'homePage.html'
     }
     
@@ -226,4 +230,10 @@ function allowed(){
     })
     .then(result => console.log(result))
     .catch(error => console.log('error', error));
+}
+
+function logout(){
+  sessionStorage.setItem('loginToken', null)
+  sessionStorage.setItem('currentUsername', null)
+  location.href = "mainPage.html"
 }
