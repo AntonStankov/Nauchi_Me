@@ -1,0 +1,24 @@
+
+  version: '2'
+
+  services:
+    app:
+      image: 'spring-boot-docker3.jar:latest'
+      build:
+        context: .
+      container_name: app
+      depends_on:
+        - anton_db
+      environment:
+        - SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/nauchi_me
+        - SPRING_DATASOURCE_USERNAME=anton_db
+        - SPRING_DATASOURCE_PASSWORD=1234
+        - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+
+    anton_db:
+      image: 'postgres:13.1-alpine'
+      container_name: db
+      environment:
+        - POSTGRES_USER=postgres
+        - POSTGRES_PASSWORD=180807
+        - POSTGRES_DB=nauchi_me
